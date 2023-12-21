@@ -1,0 +1,28 @@
+﻿@using GymDomain.Entities;
+
+@model Subscription
+
+<div class="container mt-4">
+    <h2>Add New Subscription</h2>
+
+    <form asp-action="Create" method="post" asp-controller="Subscription" asp-action="Create" class="col-md-6">
+        <div class="form-group">
+            <label asp-for="Desrciption">Desrciption:</label>
+            <input asp-for="Desrciption" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberOfMonths">Number of months:</label>
+            <input asp-for="NumberOfMonths" type="number" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="TotalNumberOfSessions">Total number of sessions:</label>
+            <input asp-for="TotalNumberOfSessions" type="number" class="form-control" value="2023-01-01" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="TotalPrice">TotalPrice:</label>
+            <input asp-for="TotalPrice" type="number" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Subscription</button>
+    </form>
+</div>
