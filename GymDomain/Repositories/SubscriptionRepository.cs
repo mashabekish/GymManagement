@@ -23,7 +23,7 @@ namespace GymDomain.Repositories
             var sub = await _context.Subscriptions.FindAsync(id);
             if (sub != null)
             {
-                _context.Subscriptions.Remove(sub);
+                sub.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
             return sub;

@@ -26,7 +26,7 @@ namespace GymDomain.Repositories
 
             if (member != null)
             {
-                _context.Members.Remove(member);
+                member.IsDeleted = true;
                 await _context.SaveChangesAsync();
             }
 
