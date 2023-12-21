@@ -35,7 +35,10 @@ namespace GymDomain.Repositories
 
         public async Task<IEnumerable<Member>> ListAsync()
         {
-            return await _context.Members.ToListAsync();
+            return await _context.Members
+                .AsNoTracking()
+                .Where(member => !member.IsDeleted)
+                .ToListAsync();
         }
 
         public async Task<Member> UpdateMemberAsync(Member member)
