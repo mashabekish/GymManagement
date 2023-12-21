@@ -1,11 +1,12 @@
-﻿
-namespace GymDomain.Entities
+﻿namespace GymDomain.Entities
 {
     public class MemberSubscription
     {
         public int Id { get; set; }
         public int MemberId { get; set; }
+        public Member Member { get; set; }
         public int SubscriptionId { get; set; }
+        public Subscription Subscription { get; set; }
         public int OriginalPrice { get; set; }
         public int DiscountValue { get; set; }
         public int PaidPrice { get; set; }
