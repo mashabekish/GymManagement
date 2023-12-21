@@ -1,5 +1,5 @@
-﻿@using GymWebApp.Controllers;
-@model List<Member>
+﻿@using GymWebApp.Models.Member;
+@model List<MemberViewModel>
 
 <h2>Members List</h2>
 
@@ -11,7 +11,7 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">Add New Member</h5>
                     <p class="card-text">Click here to add a new member.</p>
-                    <a href="@Url.Action("Create", "Members")" class="btn btn-success mt-auto">Add Member</a>
+                    <a data-toggle="modal" data-target="#addMemberModal" href="@Url.Action("Create", "Member")" class="btn btn-success mt-auto">Add Member</a>
                 </div>
             </div>
         </div>
