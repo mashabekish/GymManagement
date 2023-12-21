@@ -1,0 +1,14 @@
+﻿@using GymWebApp.Controllers;
+@model List<Member>
+
+<h2>Members List</h2>
+
+
+<body>
+    <div class="row">
+        @foreach (var member in Model)
+        {
+            @await Html.PartialAsync("_MemberDetailsCard", member)
+        }
+    </div>
+</body>
