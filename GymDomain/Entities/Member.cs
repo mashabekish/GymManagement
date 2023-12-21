@@ -1,7 +1,7 @@
 ﻿
 namespace GymDomain.Entities
 {
-    public class Memeber
+    public class Member
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
