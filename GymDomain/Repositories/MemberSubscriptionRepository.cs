@@ -26,7 +26,7 @@ namespace GymDomain.Repositories
             
             if(memberSub != null)
             {
-                _context.MemberSubscriptions.Remove(memberSub);
+                memberSub.IsDeleted = true;  
                 await _context.SaveChangesAsync();
             }
             return memberSub;
