@@ -1,0 +1,56 @@
+﻿@using GymWebApp.Models.Member;
+@model MemberDetailsViewModel
+
+<div class="container mt-4">
+    <h2>Member Details</h2>
+
+    <dl class="row">
+        <dt class="col-sm-3">ID:</dt>
+        <dd class="col-sm-9">@Model.Id</dd>
+
+        <dt class="col-sm-3">First Name:</dt>
+        <dd class="col-sm-9">@Model.FirstName</dd>
+
+        <dt class="col-sm-3">Last Name:</dt>
+        <dd class="col-sm-9">@Model.LastName</dd>
+
+        <dt class="col-sm-3">Birthday:</dt>
+        <dd class="col-sm-9">@Model.Birthday.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">ID Card Number:</dt>
+        <dd class="col-sm-9">@Model.IdCardNumber</dd>
+
+        <dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+
+        <dt class="col-sm-3">Registration Date:</dt>
+        <dd class="col-sm-9">@Model.RegistrationDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-3">Is Deleted:</dt>
+        <dd class="col-sm-9">@Model.IsDeleted</dd>
+
+        <dt class="col-sm-3">Member Subscriptions:</dt>
+        <dd class="col-sm-9">
+            @if (Model.MemberSubscriptions != null && Model.MemberSubscriptions.Any())
+            {
+                foreach (var subscription in Model.MemberSubscriptions)
+                {
+                    <dl>
+                        <dt>Start Date:</dt>
+                        <dd>@subscription.StartDate.ToShortDateString()</dd>
+
+                        <dt>End Date:</dt>
+                        <dd>@subscription.EndDate.ToShortDateString()</dd>
+
+                        <dt>Remaining Sessions:</dt>
+                        <dd>@subscription.RemainingSessions</dd>
+                    </dl>
+                }
+            }
+            else
+            {
+                <p>No member subscriptions found.</p>
+            }
+        </dd>
+    </dl>
+</div>

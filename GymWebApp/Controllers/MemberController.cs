@@ -1,6 +1,7 @@
 ﻿using GymBusiness.Abstractions;
 using GymDomain.Entities;
 using GymWebApp.Models.Member;
+using GymWebApp.Models.MemberSubscription;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymWebApp.Controllers
@@ -30,9 +31,7 @@ namespace GymWebApp.Controllers
                     Email = member.Email,
                     FirstName = member.FirstName,
                     LastName = member.LastName,
-                    IdCardNumber = member.IdCardNumber.ToString(),
-                    IsDeleted = member.IsDeleted,
-                    RegistrationDate = member.RegistrationDate,
+                    IdCardNumber = member.IdCardNumber.ToString()
                 });
             }
 
@@ -68,15 +67,76 @@ namespace GymWebApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetMember(int id)
+        public async Task<IActionResult> MemberDetails(int id)
         {
-            throw new NotImplementedException();
+            var member = await _memberService.ViewAsync(id);
+            
+            if (member is null)
+            {
+                return NotFound();
+            }
+
+            var memberViewModel = new MemberDetailsViewModel()
+            {
+                Id = member.Id,
+                FirstName = member.FirstName,
+                LastName = member.LastName,
+                Birthday = member.Birthday,
+                Email = member.Email,
+                IdCardNumber = member.IdCardNumber.ToString(),
+                IsDeleted = member.IsDeleted,
+                MemberSubscriptions = new List<MemberSubscriptionViewModel>(),
+                RegistrationDate = member.RegistrationDate,
+            };
+
+            return View("MemberDetailsDescription", memberViewModel);
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            throw new NotImplementedException();
+            var member = await _memberService.ViewAsync(id);
+
+            if (member is null)
+            {
+                return NotFound();
+            }
+
+            var memberViewModel = new MemberDetailsViewModel()
+            {
+                Id= member.Id,
+                FirstName = member.FirstName,
+                IdCardNumber = member.IdCardNumber.ToString(),
+                Birthday = member.Birthday,
+                Email = member.Email,
+                IsDeleted = member.IsDeleted,
+                LastName = member.LastName,
+                RegistrationDate = member.RegistrationDate
+            };
+
+            return View("EditMember", memberViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UpdateMemberViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var memberEntity = new Member()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Birthday = model.Birthday,
+                    Email = model.Email,
+                    IsDeleted = model.IsDeleted,
+                    IdCardNumber = Guid.Parse(model.IdCardNumber)
+                };
+
+                await _memberService.UpdateAsync(memberEntity);
+            }
+
+            return RedirectToAction("ListMembers");
         }
 
         [HttpGet]
