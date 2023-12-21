@@ -17,7 +17,7 @@ namespace GymBusiness.Services
         public async Task<Subscription> CreateAsync(Subscription subscription)
         {
             
-            subscription.Code = new Guid();
+            subscription.Code = Guid.NewGuid();
             return await _repository.AddSubscriptionAsync(subscription);
         }
 

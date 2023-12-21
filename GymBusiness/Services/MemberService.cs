@@ -17,8 +17,8 @@ namespace GymBusiness.Services
         }
 
         public async Task<Member> CreateAsync(Member member)
-        {
-            member.IdCardNumber = new Guid();
+        {            
+            member.IdCardNumber = Guid.NewGuid();
 
             return await _repository.AddMemberAsync(member); ;
         }
