@@ -27,6 +27,50 @@ namespace GymWebApp.Controllers
                 Email = "masdf@gmalc",
                 RegistrationDate = new DateTime(),
                 IsDeleted = false,
+            },
+            new Member()
+            {
+                Id = 2,
+                FirstName = "user",
+                LastName = "bob",
+                Birthday = new DateTime(),
+                IdCardNumber = "2342",
+                Email = "masdf@gmalc",
+                RegistrationDate = new DateTime(),
+                IsDeleted = false,
+            },
+            new Member()
+            {
+                Id = 2,
+                FirstName = "user",
+                LastName = "bob",
+                Birthday = new DateTime(),
+                IdCardNumber = "2342",
+                Email = "masdf@gmalc",
+                RegistrationDate = new DateTime(),
+                IsDeleted = false,
+            },
+            new Member()
+            {
+                Id = 2,
+                FirstName = "user",
+                LastName = "bob",
+                Birthday = new DateTime(),
+                IdCardNumber = "2342",
+                Email = "masdf@gmalc",
+                RegistrationDate = new DateTime(),
+                IsDeleted = false,
+            },
+            new Member()
+            {
+                Id = 2,
+                FirstName = "user",
+                LastName = "bob",
+                Birthday = new DateTime(),
+                IdCardNumber = "2342",
+                Email = "masdf@gmalc",
+                RegistrationDate = new DateTime(),
+                IsDeleted = false,
             }
         };
 
@@ -49,6 +93,11 @@ namespace GymWebApp.Controllers
 
         [HttpGet("{id}")]
         public IActionResult GetMember(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult Edit(int id)
         {
             throw new NotImplementedException();
         }
