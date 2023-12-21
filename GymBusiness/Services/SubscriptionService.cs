@@ -1,6 +1,7 @@
 using GymBusiness.Abstractions;
 using GymDomain.Abstractions;
 using GymDomain.Entities;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace GymBusiness.Services
 {
@@ -15,6 +16,8 @@ namespace GymBusiness.Services
 
         public async Task<Subscription> CreateAsync(Subscription subscription)
         {
+            
+            subscription.Code = new Guid();
             return await _repository.AddSubscriptionAsync(subscription);
         }
 
