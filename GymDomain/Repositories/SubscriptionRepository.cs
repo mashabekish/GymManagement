@@ -1,37 +1,50 @@
-﻿using GymDomain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GymDomain.Abstractions;
+using GymDomain.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace GymDomain.Repositories
 {
     public class SubscriptionRepository : ISubscriptionRepository
     {
-        public Task<Subscription> AddSubscriptionAsync(Subscription sub)
+        private readonly ApplicationDbContext _context;
+        public SubscriptionRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<Subscription> AddSubscriptionAsync(Subscription sub)
+        {
+            _context.Subscriptions.Add(sub);
+            await _context.SaveChangesAsync();
+            return sub;
         }
 
-        public Task<Subscription> DeleteSubscriptionAsync(int id)
+        public async Task<Subscription> DeleteSubscriptionAsync(int id)
         {
-            throw new NotImplementedException();
+            var sub = await _context.Subscriptions.FindAsync(id);
+            if(sub != null)
+            {
+                _context.Subscriptions.Remove(sub);
+                await _context.SaveChangesAsync();
+            }
+            return sub;
         }
 
-        public Task<IEnumerable<Subscription>> ListAsync()
+        public async Task<IEnumerable<Subscription>> ListAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Subscriptions.ToListAsync();
         }
 
-        public Task<Subscription> UpdateSubscriptionAsync(Subscription sub)
+        public async Task<Subscription> UpdateSubscriptionAsync(Subscription sub)
         {
-            throw new NotImplementedException();
+            _context.Subscriptions.Update(sub);
+            await _context.SaveChangesAsync();
+            return sub;
         }
 
-        public Task<Subscription> ViewAsync(int code)
+        public async Task<Subscription> ViewAsync(int code)
         {
-            throw new NotImplementedException();
+            return await _context.Subscriptions.FindAsync(code);
         }
     }
 }
