@@ -1,37 +1,40 @@
-﻿namespace GymBusiness.Services
+﻿using GymDomain.Entities;
+using GymDomain.Repositories;
+
+namespace GymBusiness.Services
 {
     public class SubscriptionService
     {
-        private readonly SubscriptionRepository _repository;
+        private readonly ISubscriptionRepository _repository;
 
-        public SubscriptionService(SubscriptionRepository subscriptionRepository)
+        public SubscriptionService(ISubscriptionRepository subscriptionRepository)
         {
             _repository = subscriptionRepository;
         }
 
         public Subscription CreateAsync(Subscription subscription)
         {
-            return _repository.CreateAsync(subscription);
+            return _repository.AddSubsctiption(subscription);
         }
 
         public Subscription ViewAsync(int id)
         {
-            return _repository.ViewAsync(id);
+            return _repository.View(id);
         }
 
-        public IList<Subscription> ListAsync()
+        public IEnumerable<Subscription> ListAsync()
         {
-            return _repository.ListAsync();
+            return _repository.List();
         }
 
         public Subscription UpdateAsync(Subscription subscription)
         {
-            return _repository.UpdateAsync(subscription);
+            return _repository.UpdateSubscription(subscription);
         }
 
         public Subscription DeleteAsync(int id)
         {
-            return _repository.DeleteAsync(member);
+            return _repository.DeleteSubscription(id);
         }
     }
 }

@@ -1,4 +1,4 @@
-using GymWebApp.Data;
+using GymDomain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
