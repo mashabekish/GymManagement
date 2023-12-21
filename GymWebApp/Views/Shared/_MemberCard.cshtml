@@ -1,0 +1,18 @@
+﻿@using GymWebApp.Models.Member;
+@model MemberViewModel
+
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">@($"{Model.FirstName} {Model.LastName}")</h5>
+            <p class="card-text">Birthday: @Model.Birthday.ToShortDateString()</p>
+            <p class="card-text">ID Card Number: @Model.IdCardNumber</p>
+            <p class="card-text">Email: @Model.Email</p>
+            <div class="btn-group mt-auto" role="group" aria-label="Member Actions">
+                <a href="@Url.Action("Edit", "Member", new { id = Model.Id })" class="btn btn-primary mr-10">Edit</a>
+                <a href="@Url.Action("MemberDetails", "Member", new {id = Model.Id})" class="btn btn mr-10">Details</a>
+                <a href="@Url.Action("Delete", "Member", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
