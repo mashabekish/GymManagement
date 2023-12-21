@@ -1,21 +1,26 @@
 using GymBusiness.Abstractions;
 using GymDomain.Abstractions;
 using GymDomain.Entities;
+using GymDomain.Repositories;
 
 namespace GymBusiness.Services
 {
     public class MemberService : IMemberService
     {
         private readonly IMemberRepository _repository;
+        private readonly ISubscriptionRepository _subscriptionRepository;
 
-        public MemberService(IMemberRepository memberRepository)
+        public MemberService(IMemberRepository memberRepository, ISubscriptionRepository subscriptionRepository)
         {
             _repository = memberRepository;
+            _subscriptionRepository = subscriptionRepository;
         }
 
         public async Task<Member> CreateAsync(Member member)
         {
-            return await _repository.AddMemberAsync(member);
+            member.IdCardNumber = new Guid();
+
+            return await _repository.AddMemberAsync(member); ;
         }
 
         public async Task<Member> ViewAsync(int id)
@@ -35,6 +40,10 @@ namespace GymBusiness.Services
 
         public async Task<Member> DeleteAsync(int id)
         {
+            var memberToDelete = await _repository.ViewAsync(id);
+
+            await _subscriptionRepository.DeleteSubscriptionAsync(memberToDelete.Id);
+
             return await _repository.DeleteMemberAsync(id);
         }
     }
