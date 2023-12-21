@@ -38,6 +38,7 @@ namespace GymDomain.Repositories
         {
             return await _context.Subscriptions
                 .AsNoTracking()
+                .Where(s => !s.IsDeleted)
                 .ToListAsync();
         }
 
