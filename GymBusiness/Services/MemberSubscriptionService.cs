@@ -1,6 +1,6 @@
 using GymBusiness.Abstractions;
+using GymDomain.Abstractions;
 using GymDomain.Entities;
-using GymDomain.Repositories;
 
 namespace GymBusiness.Services
 {

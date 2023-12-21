@@ -2,7 +2,6 @@
 using GymDomain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace GymDomain.Repositories
 {
     public class SubscriptionRepository : ISubscriptionRepository
@@ -22,7 +21,7 @@ namespace GymDomain.Repositories
         public async Task<Subscription> DeleteSubscriptionAsync(int id)
         {
             var sub = await _context.Subscriptions.FindAsync(id);
-            if(sub != null)
+            if (sub != null)
             {
                 _context.Subscriptions.Remove(sub);
                 await _context.SaveChangesAsync();

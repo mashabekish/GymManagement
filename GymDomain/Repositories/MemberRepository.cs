@@ -2,7 +2,6 @@
 using GymDomain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace GymDomain.Repositories
 {
     public class MemberRepository : IMemberRepository
@@ -16,7 +15,7 @@ namespace GymDomain.Repositories
 
         public async Task<Member> AddMemberAsync(Member member)
         {
-            _context.Members.AddAsync(member);
+            _context.Members.Add(member);
             await _context.SaveChangesAsync();
             return member;
         }
@@ -25,7 +24,7 @@ namespace GymDomain.Repositories
         {
             var member = await _context.Members.FindAsync(id);
 
-            if(member != null) 
+            if (member != null)
             {
                 _context.Members.Remove(member);
                 await _context.SaveChangesAsync();
