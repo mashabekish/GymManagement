@@ -2,14 +2,6 @@
 
 namespace GymDomain.Entities
 {
-    public enum WeekFrequency 
-    { 
-        TwoDays, 
-        ThreeDays, 
-        FourDays, 
-        FiveDays 
-    }
-
     public class Subscription
     {
         public int Id { get; set; }
