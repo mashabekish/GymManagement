@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Views\MemberSubscription\" />
-    <Folder Include="Views\Subscription\" />
   </ItemGroup>
 
   <ItemGroup>
