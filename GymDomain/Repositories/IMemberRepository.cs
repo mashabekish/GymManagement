@@ -1,18 +1,13 @@
 ﻿using GymDomain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GymDomain.Repositories
 {
     public interface IMemberRepository
     {
-        public Member View(int id);
-        public Member AddMember(Member member);
-        public IEnumerable<Member> List();        
-        public Member UpdateMember(Member member);
-        public Member DeleteMember(int id);
+        Task<Member> ViewAsync(int id);
+        Task<Member> AddMemberAsync(Member member);
+        Task<IEnumerable<Member>> ListAsync();
+        Task<Member> UpdateMemberAsync(Member member);
+        Task<Member> DeleteMemberAsync(int id);
     }
 }
