@@ -1,94 +1,70 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GymBusiness.Abstractions;
+using GymDomain.Entities;
+using GymWebApp.Models.Member;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GymWebApp.Controllers
 {
     public class MemberController : Controller
     {
-        private static List<Member> _members = new List<Member>()
-        {
-            new Member()
-            {
-                Id = 1,
-                FirstName = "Max",
-                LastName = "Silkou",
-                Birthday = new DateTime(),
-                IdCardNumber = "2342",
-                Email = "masdf@gmalc",
-                RegistrationDate = new DateTime(),
-                IsDeleted = false,
-            },
-            new Member()
-            {
-                Id = 2,
-                FirstName = "user",
-                LastName = "bob",
-                Birthday = new DateTime(),
-                IdCardNumber = "2342",
-                Email = "masdf@gmalc",
-                RegistrationDate = new DateTime(),
-                IsDeleted = false,
-            },
-            new Member()
-            {
-                Id = 2,
-                FirstName = "user",
-                LastName = "bob",
-                Birthday = new DateTime(),
-                IdCardNumber = "2342",
-                Email = "masdf@gmalc",
-                RegistrationDate = new DateTime(),
-                IsDeleted = false,
-            },
-            new Member()
-            {
-                Id = 2,
-                FirstName = "user",
-                LastName = "bob",
-                Birthday = new DateTime(),
-                IdCardNumber = "2342",
-                Email = "masdf@gmalc",
-                RegistrationDate = new DateTime(),
-                IsDeleted = false,
-            },
-            new Member()
-            {
-                Id = 2,
-                FirstName = "user",
-                LastName = "bob",
-                Birthday = new DateTime(),
-                IdCardNumber = "2342",
-                Email = "masdf@gmalc",
-                RegistrationDate = new DateTime(),
-                IsDeleted = false,
-            },
-            new Member()
-            {
-                Id = 2,
-                FirstName = "user",
-                LastName = "bob",
-                Birthday = new DateTime(),
-                IdCardNumber = "2342",
-                Email = "masdf@gmalc",
-                RegistrationDate = new DateTime(),
-                IsDeleted = false,
-            }
-        };
+        private readonly IMemberService _memberService;
 
-        public MemberController()
+        public MemberController(IMemberService memberService)
         {
-
+            _memberService = memberService;
         }
 
         [HttpGet]
-        public IActionResult ListMembers()
+        public async Task<IActionResult> ListMembers()
         {
-            return View("ListMembers", _members);
+            var members = await _memberService.ListAsync();
+
+            var membersViewModel = new List<MemberViewModel>();
+
+            foreach (var member in members)
+            {
+                membersViewModel.Add(new MemberViewModel
+                {
+                    Id = member.Id,
+                    Birthday = member.Birthday,
+                    Email = member.Email,
+                    FirstName = member.FirstName,
+                    LastName = member.LastName,
+                    IdCardNumber = member.IdCardNumber.ToString(),
+                    IsDeleted = member.IsDeleted,
+                    RegistrationDate = member.RegistrationDate,
+                });
+            }
+
+            return View("ListMembers", membersViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var model = new AddMemberViewModel();
+            return View("CreateMember", model);
         }
 
         [HttpPost]
-        public IActionResult AddMember(Member member)
+        public async Task<IActionResult> Create(AddMemberViewModel modelViewModel)
         {
-            throw new NotImplementedException();
+            if (modelViewModel is null)
+            {
+                return NotFound();
+            }
+
+            var model = new Member()
+            {
+                FirstName = modelViewModel.FirstName,
+                LastName = modelViewModel.LastName,
+                Birthday = modelViewModel.Birthday,
+                Email = modelViewModel.Email,
+            };
+
+            await _memberService.CreateAsync(model);
+
+            return View("ApplyAdding");
         }
 
         [HttpGet("{id}")]
@@ -101,17 +77,5 @@ namespace GymWebApp.Controllers
         {
             throw new NotImplementedException();
         }
-    }
-
-    public class Member
-    {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime Birthday { get; set; }
-        public string IdCardNumber { get; set; }
-        public string Email { get; set; }
-        public DateTime RegistrationDate { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

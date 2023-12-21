@@ -35,7 +35,7 @@ namespace GymDomain.Repositories
 
         public async Task<IEnumerable<Member>> ListAsync()
         {
-            return await _context.Members.ToListAsync();
+            return await _context.Members.AsNoTracking().ToListAsync();
         }
 
         public async Task<Member> UpdateMemberAsync(Member member)
