@@ -3,14 +3,17 @@
 
 <div class="col-md-4 mb-4">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
             <h5 class="card-title">@($"{Model.FirstName} {Model.LastName}")</h5>
             <p class="card-text">Birthday: @Model.Birthday.ToShortDateString()</p>
             <p class="card-text">ID Card Number: @Model.IdCardNumber</p>
             <p class="card-text">Email: @Model.Email</p>
             <p class="card-text">Registration Date: @Model.RegistrationDate.ToShortDateString()</p>
             <p class="card-text">Is Deleted: @(Model.IsDeleted ? "Yes" : "No")</p>
-            <a href="@Url.Action("Edit", "Members", new { id = Model.Id })" class="btn btn-primary">Edit</a>
+            <div class="btn-group mt-auto" role="group" aria-label="Member Actions">
+                <a href="@Url.Action("Edit", "Member", new { id = Model.Id })" class="btn btn-primary mr-10">Edit</a>
+                <a href="@Url.Action("Delete", "Member", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+            </div>
         </div>
     </div>
 </div>
