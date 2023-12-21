@@ -1,6 +1,6 @@
 ﻿using GymDomain.Entities;
 
-namespace GymDomain.Repositories
+namespace GymDomain.Abstractions
 {
     public interface IMemberRepository
     {

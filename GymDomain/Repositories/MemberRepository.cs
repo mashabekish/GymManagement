@@ -1,37 +1,54 @@
-﻿using GymDomain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GymDomain.Abstractions;
+using GymDomain.Entities;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace GymDomain.Repositories
 {
     public class MemberRepository : IMemberRepository
     {
+        private readonly ApplicationDbContext _context;
+
+        public MemberRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<Member> AddMemberAsync(Member member)
         {
-            throw new NotImplementedException();
+            _context.Members.AddAsync(member);
+            await _context.SaveChangesAsync();
+            return member;
         }
 
         public async Task<Member> DeleteMemberAsync(int id)
         {
-            throw new NotImplementedException();
+            var member = await _context.Members.FindAsync(id);
+
+            if(member != null) 
+            {
+                _context.Members.Remove(member);
+                await _context.SaveChangesAsync();
+            }
+
+            return member;
         }
 
         public async Task<IEnumerable<Member>> ListAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Members.ToListAsync();
         }
 
         public async Task<Member> UpdateMemberAsync(Member member)
         {
-            throw new NotImplementedException();
+            _context.Members.Update(member);
+            await _context.SaveChangesAsync();
+            return member;
         }
 
         public async Task<Member> ViewAsync(int id)
-        {            
-            throw new NotImplementedException();
+        {
+            return await _context.Members.FindAsync(id);
         }
     }
 }

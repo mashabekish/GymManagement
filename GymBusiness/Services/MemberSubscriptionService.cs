@@ -1,4 +1,4 @@
-﻿using GymBusiness.Abstractions;
+using GymBusiness.Abstractions;
 using GymDomain.Entities;
 using GymDomain.Repositories;
 
