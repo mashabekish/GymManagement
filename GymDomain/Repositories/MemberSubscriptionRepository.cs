@@ -37,6 +37,8 @@ namespace GymDomain.Repositories
         public async Task<IEnumerable<MemberSubscription>> ListAsync()
         {
             return await _context.MemberSubscriptions
+                .Include(x => x.Member)
+                .Include(y => y.Subscription)
                 .AsNoTracking()
                 .Where(memberSubscription => !memberSubscription.IsDeleted)
                 .ToListAsync();
