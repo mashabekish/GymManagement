@@ -14,7 +14,7 @@ namespace GymWebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ListSubscriptionsAsync()
+        public async Task<IActionResult> ListSubscriptions()
         {
             var subscriptions = await _service.ListAsync();
             return View("ListSubscriptions", subscriptions);
@@ -37,6 +37,21 @@ namespace GymWebApp.Controllers
 
             await _service.CreateAsync(subscription);
             return View("ApplyAdding");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.DeleteAsync(id);
+
+            var subscriptions = await _service.ListAsync();
+            return View("ListSubscriptions", subscriptions);
         }
     }
 }

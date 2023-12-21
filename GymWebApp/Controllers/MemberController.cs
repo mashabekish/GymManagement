@@ -73,9 +73,18 @@ namespace GymWebApp.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _memberService.DeleteAsync(id);
+
+            return await ListMembers();
         }
     }
 }

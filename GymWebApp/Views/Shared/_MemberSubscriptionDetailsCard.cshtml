@@ -1,0 +1,22 @@
+﻿@using GymDomain.Entities;
+
+@model MemberSubscription
+
+<div class="col-md-4 mb-4">
+    <div class="card">
+        <div class="card-body d-flex flex-column">
+@*             <h5 class="card-title">@Model.Subscription.Desrciption</h5>
+            <p class="card-text">@($"Member: {Model.Member.FirstName} {Model.Member.LastName}")</p> *@
+            <p class="card-text">Original price: @Model.OriginalPrice</p>
+            <p class="card-text">Discount value: @Model.DiscountValue</p>
+            <p class="card-text">Paid price: @Model.PaidPrice</p>
+            <p class="card-text">Start date: @Model.StartDate.ToShortDateString()</p>
+            <p class="card-text">End date: @Model.EndDate.ToShortDateString()</p>
+            <p class="card-text">Remaining sessions: @Model.RemainingSessions</p>
+            <div class="btn-group mt-auto" role="group" aria-label="Member Subscription Actions">
+                <a href="@Url.Action("Edit", "Subscription", new { id = Model.Id })" class="btn btn-primary mr-10">Edit</a>
+                <a href="@Url.Action("Delete", "Subscription", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
