@@ -1,5 +1,8 @@
+using GymBusiness.Abstractions;
+using GymBusiness.Services;
 using GymDomain;
-using Microsoft.AspNetCore.Identity;
+using GymDomain.Abstractions;
+using GymDomain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace GymWebApp
@@ -11,6 +14,26 @@ namespace GymWebApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services
+                .AddScoped<IMemberRepository, MemberRepository>()
+                .AddScoped<ISubscriptionRepository, SubscriptionRepository>()
+                .AddScoped<IMemberSubscriptionRepository, MemberSubscriptionRepository>();
+
+            builder.Services
+                .AddScoped<IMemberService, MemberService>()
+                .AddScoped<ISubscriptionService, SubscriptionService>()
+                .AddScoped<IMemberSubscriptionService, MemberSubscriptionService>();
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 

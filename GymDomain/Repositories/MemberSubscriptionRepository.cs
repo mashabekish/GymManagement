@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymDomain.Repositories
 {
-    internal class MemberSubscriptionRepository : IMemberSubscriptionRepository
+    public class MemberSubscriptionRepository : IMemberSubscriptionRepository
     {
         private readonly ApplicationDbContext _context;
 
