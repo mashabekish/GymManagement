@@ -33,7 +33,7 @@ namespace GymDomain.Repositories
 
         public async Task<IEnumerable<MemberSubscription>> ListAsync()
         {
-            return await _context.MemberSubscriptions.ToListAsync();
+            return await _context.MemberSubscriptions.Include(x => x.Member).Include(y => y.Subscription).ToListAsync();
         }
 
         public async Task<MemberSubscription> UpdateMemberSubAsync(MemberSubscription memberSub)
